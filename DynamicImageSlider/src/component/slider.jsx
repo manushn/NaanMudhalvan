@@ -91,7 +91,7 @@ export default function Slider() {
               <div className="title">{img.title}</div>
               <div className="name">{img.name}</div>
               <div className="des">
-                This is a test text for dynamic image slider project on Naan mudhalvan course.
+                This is a test text for dynamic image slider project on Naan mudhalvan course Manush N.
               </div>
               <div className="btn">
                 <button>See More</button>

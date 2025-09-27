@@ -1,7 +1,8 @@
+
 import { useEffect, useRef } from "react";
 import "../css/slider.css";
 
-const images = [
+const birdImages = [
   { src: "image/eagel1.jpg", title: "SLIDER", name: "EAGLE" },
   { src: "image/owl1.jpg", title: "SLIDER", name: "OWL" },
   { src: "image/crow.jpg", title: "SLIDER", name: "CROW" },
@@ -17,81 +18,92 @@ const images = [
 
 export default function Slider() {
   const listRef = useRef(null);
-  const carouselRef = useRef(null);
-  const runningTimeRef = useRef(null);
+  const wrapperRef = useRef(null);
+  const barRef = useRef(null);
 
-  const timeRunning = 3000;
-  const timeAutoNext = 7000;
-  let runTimeOut = useRef(null);
-  let runNextAuto = useRef(null);
+  
+  const transitionDelay = 3000;
+  const autoPlayDelay = 7000;
 
-  const resetTimeAnimation = () => {
-    if (runningTimeRef.current) {
-      runningTimeRef.current.style.animation = "none";
-      runningTimeRef.current.offsetHeight; // trigger reflow
-      runningTimeRef.current.style.animation = null;
-      runningTimeRef.current.style.animation =
-        "runningTime 7s linear 1 forwards";
-    }
+  let timeoutHandler = useRef(null);
+  let autoNextHandler = useRef(null);
+
+ 
+  const restartTimerBar = () => {
+    if (!barRef.current) return;
+
+    
+    barRef.current.style.animation = "none";
+    barRef.current.offsetHeight; 
+    barRef.current.style.animation = null;
+    barRef.current.style.animation = "runningTime 7s linear 1 forwards";
   };
 
-  const showSlider = (type) => {
+  
+  const moveSlide = (direction) => {
     const list = listRef.current;
     if (!list) return;
-    const items = list.querySelectorAll(".item");
 
-    if (type === "next") {
-      list.appendChild(items[0]);
+    const slides = list.querySelectorAll(".item");
+
+    if (direction === "next") {
+      list.appendChild(slides[0]); 
     } else {
-      list.prepend(items[items.length - 1]);
+      list.prepend(slides[slides.length - 1]); 
     }
 
-    if (carouselRef.current) {
-      carouselRef.current.classList.add(type);
+    if (wrapperRef.current) {
+      wrapperRef.current.classList.add(direction);
     }
 
-    clearTimeout(runTimeOut.current);
-    runTimeOut.current = setTimeout(() => {
-      if (carouselRef.current) {
-        carouselRef.current.classList.remove("next");
-        carouselRef.current.classList.remove("prev");
+    
+    clearTimeout(timeoutHandler.current);
+    timeoutHandler.current = setTimeout(() => {
+      if (wrapperRef.current) {
+        wrapperRef.current.classList.remove("next");
+        wrapperRef.current.classList.remove("prev");
       }
-    }, timeRunning);
+    }, transitionDelay);
 
-    clearTimeout(runNextAuto.current);
-    runNextAuto.current = setTimeout(() => {
-      showSlider("next");
-    }, timeAutoNext);
+    
+    clearTimeout(autoNextHandler.current);
+    autoNextHandler.current = setTimeout(() => {
+      moveSlide("next");
+    }, autoPlayDelay);
 
-    resetTimeAnimation();
+    restartTimerBar();
   };
 
   useEffect(() => {
-    resetTimeAnimation();
-    runNextAuto.current = setTimeout(() => {
-      showSlider("next");
-    }, timeAutoNext);
+    restartTimerBar();
 
+   
+    autoNextHandler.current = setTimeout(() => {
+      moveSlide("next");
+    }, autoPlayDelay);
+
+    
     return () => {
-      clearTimeout(runTimeOut.current);
-      clearTimeout(runNextAuto.current);
+      clearTimeout(timeoutHandler.current);
+      clearTimeout(autoNextHandler.current);
     };
   }, []);
 
   return (
-    <div className="carousel" ref={carouselRef}>
+    <div className="carousel" ref={wrapperRef}>
       <div className="list" ref={listRef}>
-        {images.map((img, i) => (
+        {birdImages.map((img, idx) => (
           <div
             className="item"
-            key={i}
+            key={idx} 
             style={{ backgroundImage: `url(${img.src})` }}
           >
             <div className="content">
               <div className="title">{img.title}</div>
               <div className="name">{img.name}</div>
               <div className="des">
-                This is a test text for dynamic image slider project on Naan mudhalvan course Manush N.
+                
+                This is some dummy description text for the Naan Mudhalvan project by Manush N.
               </div>
               <div className="btn">
                 <button>See More</button>
@@ -104,12 +116,12 @@ export default function Slider() {
 
       
       <div className="arrows">
-        <button onClick={() => showSlider("prev")}>&lt;</button>
-        <button onClick={() => showSlider("next")}>&gt;</button>
+        <button onClick={() => moveSlide("prev")}>&lt;</button>
+        <button onClick={() => moveSlide("next")}>&gt;</button>
       </div>
 
       
-      <div className="timeRunning" ref={runningTimeRef}></div>
+      <div className="timeRunning" ref={barRef}></div>
     </div>
   );
 }

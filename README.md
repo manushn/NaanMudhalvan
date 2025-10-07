@@ -2,7 +2,7 @@
 
 ## Dynamic Image Slider
 
-### 📖 Description
+### 📖 Description/Aim
 
 The Dynamic Image Slider is a reusable, responsive React.js component that automatically move through images with smooth CSS transitions and autoplay function. It was built using Vite for fast development and supports responsiveness across devices .
 

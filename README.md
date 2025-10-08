@@ -1,29 +1,33 @@
 # 📌 Project Name
 
-Dynamic Image Slider
+## Dynamic Image Slider
 
-## 📖 Description/Aim
+### 📖 Description/Aim
 
-The Dynamic Image Slider is a responsive and reusable web component built using HTML, CSS, and JavaScript. It automatically transitions through images with smooth animations and an autoplay feature. Designed with pure front-end technologies, it works seamlessly across all modern devices and browsers.
+The Dynamic Image Slider is a reusable, responsive React.js component that automatically move through images with smooth CSS transitions and autoplay function. It was built using Vite for fast development and supports responsiveness across devices .
 
-This project can be easily integrated into any website to display image galleries, portfolios, or product showcases in an attractive, interactive way.
+This project can be easily integrated into any modern web application to showcase images in a visually good and interactive way.
+
 
 ## ⚙️ Tech Stack
 
- * HTML5 – Structure and layout
-
- * CSS3 – Styling and transition effects
-
- * JavaScript (ES6+) – Logic, timing, and user interaction
+  * React.js – Frontend library
+  
+  * Vite – Development environment
+  
+  * CSS3 – Styling and animations
+  
+  * JavaScript (ES6+) – Logic and timer control
+  
 
 ## 🚀 Features
 
- * Automatic image sliding with timed transitions
+  * Automatic image slider with interval-based transitions
 
-* Smooth and customizable CSS animations
+  * Smooth animations using CSS transitions
 
-* Fully responsive layout for all screen sizes
+  * Fully responsive design 
 
-* Lightweight and dependency-free (no external libraries)
+  * Lightweight and reusable React component
 
-* Simple integration into any web project
+  * Easy to deploy on Vercel or similar hosting platforms
